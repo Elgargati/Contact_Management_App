@@ -13,7 +13,7 @@ export default function SearchContact() {
         <span class="sr-only">Info</span>
         <div>
           <span class="font-medium">Info alert!</span> Select a contact or
-          create a{" "}
+          create a
           <Link to={"/new"} className="font-bold">
             new one
           </Link>

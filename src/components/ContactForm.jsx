@@ -24,7 +24,7 @@ export default function ContactForm({ contacts, onSave }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     onSave(formData);
-    id ? navigate(`/contact/${id}`) : navigate(`/`);
+    id ? navigate(`/contact/${id}`) : navigate(`/Contact_Management_App`);
   };
 
   return (
@@ -127,7 +127,9 @@ export default function ContactForm({ contacts, onSave }) {
             <button
               type="button"
               onClick={
-                id ? () => navigate(`/contact/${id}`) : () => navigate(`/`)
+                id
+                  ? () => navigate(`/contact/${id}`)
+                  : () => navigate(`/Contact_Management_App`)
               }
               className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl px-6 py-2 rounded-full  transition"
             >
