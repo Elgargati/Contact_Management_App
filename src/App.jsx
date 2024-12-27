@@ -5,6 +5,7 @@ import ContactDetails from "./components/ContactDetails";
 import ContactForm from "./components/ContactForm";
 import Sidebar from "./components/Sidebar";
 import SearchContact from "./components/SearchContact";
+import NotFound from "./components/NotFound";
 
 export default function App() {
   const [contacts, setContacts] = useState([
@@ -104,9 +105,9 @@ export default function App() {
         />
         <main className="flex-1 overflow-y-auto">
           <Routes>
-            <Route path="/" element={<SearchContact />} />
+            <Route path="/Contact_Management_App" element={<SearchContact />} />
             <Route
-              path="/contact/:id"
+              path="/Contact_Management_App/contact/:id"
               element={
                 <ContactDetails
                   contacts={contacts}
@@ -115,15 +116,16 @@ export default function App() {
               }
             />
             <Route
-              path="/new"
+              path="/Contact_Management_App/new"
               element={<ContactForm onSave={handleSaveContact} />}
             />
             <Route
-              path="/edit/:id"
+              path="/Contact_Management_App/edit/:id"
               element={
                 <ContactForm contacts={contacts} onSave={handleSaveContact} />
               }
             />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <ToastContainer

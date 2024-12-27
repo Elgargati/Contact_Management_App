@@ -7,7 +7,7 @@ export default function Sidebar({ contacts, searchTerm, onSearchChange }) {
     <div className="md:w-72 hover:w-80 duration-300 bg-gradient-to-r from-cyan-100 to-blue-200 md:h-screen border-b md:border-r flex flex-col">
       {/* Header */}
       <div className="p-4 border-b">
-        <Link to={"/"}>
+        <Link to={"/Contact_Management_App"}>
           <h1 className="text-xl text-center flex items-center justify-start gap-2 uppercase hover:text-gray-500 font-bold text-gray-800 mb-4">
             <ReceiptText />
             Contacts
@@ -30,7 +30,7 @@ export default function Sidebar({ contacts, searchTerm, onSearchChange }) {
           contacts.map((contact) => (
             <Link
               key={contact.id}
-              to={`/contact/${contact.id}`}
+              to={`/Contact_Management_App/contact/${contact.id}`}
               className=" text-left p-1  bg-gradient-to-r from-blue-200 to-white m-3 rounded-xl hover:bg-gradient-to-br  flex items-center gap-3"
             >
               {contact.avatar ? (
@@ -57,7 +57,7 @@ export default function Sidebar({ contacts, searchTerm, onSearchChange }) {
       </div>
 
       <Link
-        to="/new"
+        to="/Contact_Management_App/new"
         className="m-4 w-2/3 mx-auto text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 px-4 py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-blue-600"
       >
         <PlusCircle size={20} />

@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Edit2, Trash2, User, Mail, Phone } from "lucide-react";
-import ContactNotFound from "./ContactNotFound";
+import NotFound from "./NotFound";
 export default function ContactDetails({ contacts, onDelete }) {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -9,7 +9,7 @@ export default function ContactDetails({ contacts, onDelete }) {
   const contact = contacts.find((contact) => contact.id === parseInt(id));
 
   if (!contact) {
-    return <ContactNotFound />;
+    return <NotFound />;
   }
 
   return (
@@ -32,7 +32,9 @@ export default function ContactDetails({ contacts, onDelete }) {
           </div>
           <div className="flex  gap-2">
             <button
-              onClick={() => navigate(`/edit/${contact.id}`)}
+              onClick={() =>
+                navigate(`/Contact_Management_App/edit/${contact.id}`)
+              }
               className="p-2 text-blue-500 hover:bg-blue-100 rounded-lg flex items-center gap-2 transition"
             >
               <Edit2 size={20} />
