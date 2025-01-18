@@ -45,7 +45,6 @@ Le projet utilise **React.js** et **Tailwind CSS** pour offrir une expérience u
   - Contacts favoris.
   - Contacts récents.
 - **Notifications** : Utilisation de **React Toastify** pour des notifications informatives (ajout, modification, suppression, etc.).
-- **Design responsive** : Optimisé pour une utilisation fluide sur tous les appareils.
 - **Transitions fluides** : Animations et effets modernes pour une expérience interactive.
 
 ---
