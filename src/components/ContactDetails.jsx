@@ -1,79 +1,144 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Edit2, Trash2, User, Mail, Phone } from "lucide-react";
-import NotFound from "./NotFound";
-export default function ContactDetails({ contacts, onDelete }) {
+
+export default function ContactForm({ contacts, onSave }) {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const contact = contacts.find((contact) => contact.id === parseInt(id));
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    avatar: "",
+  });
 
-  if (!contact) {
-    return <NotFound />;
-  }
+  useEffect(() => {
+    if (id) {
+      const contact = contacts.find((contact) => contact.id === parseInt(id));
+      if (contact) {
+        setFormData(contact);
+      }
+    }
+  }, [id, contacts]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSave(formData);
+    id
+      ? navigate(`/Contact_Management_App/contact/${id}`)
+      : navigate(`/Contact_Management_App`);
+  };
 
   return (
-    <div className="p-6 md:p-12 bg-gradient-to-r from-white to-blue-200 min-h-screen flex  items-start">
-      <div className="w-full max-w-lg  p-6 rounded-lg shadow-lg hover:scale-105 duration-300">
-        <div className="flex justify-between items-start mb-6">
-          <div className="flex items-center gap-4">
-            {contact.avatar ? (
-              <img
-                src={contact.avatar}
-                alt="Avatar"
-                className="w-20 h-20 rounded-full shadow-md"
-              />
-            ) : (
-              <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center shadow-md">
-                <User size={40} className="text-gray-500" />
-              </div>
-            )}
-            <h2 className="text-2xl font-bold text-gray-800">{contact.name}</h2>
-          </div>
-          <div className="flex  gap-2">
-            <button
-              onClick={() =>
-                navigate(`/Contact_Management_App/edit/${contact.id}`)
+    <div className="p-6 md:p-12 bg-gradient-to-r from-white to-blue-200 min-h-screen flex ">
+      <div className=" p-8  w-4/5 mx-auto  ">
+        <h2 className=" text-center  mb-6 text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">
+          {id ? "Edit Contact" : "Add New Contact"}
+        </h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Champ Nom */}
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              type="text"
+              value={formData.name}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
               }
-              className="p-2 text-blue-500 hover:bg-blue-100 rounded-lg flex items-center gap-2 transition"
+              className="block py-2.5 px-0 w-full text-lg  bg-transparent border-0 border-b-2 border-gray-300 appearance-none   focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              required
+            />
+            <label
+              for="floating_name"
+              class="peer-focus:font-medium absolute text-lg text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              <Edit2 size={20} />
-              Edit
-            </button>
+              Name
+            </label>
+          </div>
+
+          {/* Champ Email */}
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              type="email"
+              value={formData.email}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
+              class="block py-2.5 px-0 w-full text-lg  bg-transparent border-0 border-b-2 border-gray-300 appearance-none   focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              required
+            />
+            <label
+              for="floating_email"
+              class="peer-focus:font-medium absolute text-lg text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Email address
+            </label>
+          </div>
+
+          {/* Champ Téléphone */}
+
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              type="tel"
+              value={formData.phone}
+              onChange={(e) =>
+                setFormData({ ...formData, phone: e.target.value })
+              }
+              className="block py-2.5 px-0 w-full text-lg  bg-transparent border-0 border-b-2 border-gray-300 appearance-none   focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              required
+            />
+            <label
+              for="floating_Tel"
+              class="peer-focus:font-medium absolute text-lg text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Phone
+            </label>
+          </div>
+
+          {/* Champ Avatar */}
+
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              type="url"
+              value={formData.avatar}
+              onChange={(e) =>
+                setFormData({ ...formData, avatar: e.target.value })
+              }
+              className="block py-2.5 px-0 w-full text-lg  bg-transparent border-0 border-b-2 border-gray-300 appearance-none   focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+            />
+            <label
+              for="floating_Avatar"
+              class="peer-focus:font-medium absolute text-lg text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Avatar URL (optional)
+            </label>
+          </div>
+
+          {/* Boutons */}
+          <div className="flex justify-center gap-4 pt-4">
             <button
-              onClick={() => {
-                onDelete(contact.id);
-                navigate("/Contact_Management_App");
-              }}
-              className="p-2 text-red-500 hover:bg-red-50 rounded-lg flex items-center gap-2 transition"
+              type="submit"
+              className=" text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl px-6 py-2 rounded-full  transition"
             >
-              <Trash2 size={20} />
-              Delete
+              {id ? ` Update` : `Add`} Contact
+            </button>
+
+            <button
+              type="button"
+              onClick={
+                id
+                  ? () => navigate(`/Contact_Management_App/contact/${id}`)
+                  : () => navigate(`/Contact_Management_App`)
+              }
+              className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl px-6 py-2 rounded-full  transition"
+            >
+              Cancel
             </button>
           </div>
-        </div>
-        <div className="space-y-4">
-          {/* Email */}
-          <div className="flex items-center gap-3 text-gray-800">
-            <Mail size={20} />
-            <a
-              href={`mailto:${contact.email}`}
-              className="hover:text-blue-500 transition"
-            >
-              {contact.email}
-            </a>
-          </div>
-          {/* Phone */}
-          <div className="flex items-center gap-3 text-gray-800">
-            <Phone size={20} />
-            <a
-              href={`tel:${contact.phone}`}
-              className="hover:text-blue-500 transition"
-            >
-              {contact.phone}
-            </a>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
   );

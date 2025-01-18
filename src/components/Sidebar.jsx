@@ -4,7 +4,7 @@ import { Search, PlusCircle, User, ReceiptText } from "lucide-react";
 
 export default function Sidebar({ contacts, searchTerm, onSearchChange }) {
   return (
-    <div className="md:w-72 hover:w-80 duration-300 bg-gradient-to-r from-cyan-100 to-blue-200 md:h-screen border-b md:border-r flex flex-col">
+    <div className="w-full md:w-72 md:hover:w-80 duration-300 bg-gradient-to-r from-cyan-100 to-blue-200 md:h-screen border-b md:border-r md:flex md:flex-col">
       {/* Header */}
       <div className="p-4 border-b">
         <Link to={"/Contact_Management_App"}>
@@ -13,6 +13,7 @@ export default function Sidebar({ contacts, searchTerm, onSearchChange }) {
             Contacts
           </h1>
         </Link>
+
         <div className="relative">
           <input
             type="text"
